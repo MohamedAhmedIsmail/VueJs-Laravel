@@ -13,6 +13,7 @@ class DataHandlerController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
+//        dd($data);
         $data = DataHandler::handleData($data);
         Data::create($data);
     }

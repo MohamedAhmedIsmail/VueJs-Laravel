@@ -1,7 +1,11 @@
+
 <script>
 import Layout from "../../layout/mainLayout.vue";
 import PageHeader from "@/components/page-header";
-import RecursiveOptions from "./recursiveOptions.vue";
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
+// import RecursiveOptions from "./recursiveOptions.vue";
+import Vue from 'vue';
 /*
  * Dashboard page
  */
@@ -9,7 +13,9 @@ export default {
   components: {
       Layout,
       PageHeader,
-      RecursiveOptions
+      // RecursiveOptions,
+      vSelect,
+      Vue
   },
 
   data() {
@@ -21,75 +27,115 @@ export default {
         errors: null,
         submitted: false,
         pending: false,
+        sizes: ['Small', 'Medium', 'Large', 'Extra Large'],
         categories:[],
         properties:[],
         optionData:{},
-        optionsChild:{},
-        selectIDs:[],
+        optionsChild:[],
+        optionsChildChild:[],
         inputOther:[],
         inputOtherString:[],
         form:{}
 
     };
   },
+
     methods: {
+      async getChildChildOptions(event)
+      {
+          let that = this;
+          for(const index in that.optionData) {
+              if (that.optionData[index].child == true) {
+                  console.log(that.optionData);
+                  that.axios.get("options-child/" + that.optionData[index].index + '/' + that.optionData[index].option_id).then(function (response) {
+
+                      // that.optionsChild[index] = response.data;
+                      Vue.set(that.optionsChildChild, index, response.data);
+                      console.log(that.optionsChildChild);
+                      that.pending = false;
+                  });
+
+              }
+          }
+      },
         async getChildOptions(event)
         {
             let that = this;
-            let count = 0;
-            for(let i =0; i<100;i++)
-            {
-                that.inputOther[i] = 0;
-            }
+
             for(const index in that.optionData)
             {
                 if(that.optionData[index].value == 'Other')
                 {
                     that.inputOther[index] = 1;
                 }
+                else
+                {
+                    that.inputOther[index] = 0;
+                }
                 if(that.optionData[index].child == true)
                 {
-                    await that.axios.get("options-child/"+that.optionData[index].index+'/'+that.optionData[index].option_id).then(function (response) {
-                        that.optionsChild = response.data;
+                    that.axios.get("options-child/"+that.optionData[index].index+'/'+that.optionData[index].option_id).then(function (response) {
+
+                         // that.optionsChild[index] = response.data;
+                         Vue.set(that.optionsChild,index,response.data);
                         that.pending = false;
                     });
 
                 }
-                count++;
             }
         },
         async onChange(event)
         {
             let that = this;
+            that.properties=[],
+            that.optionData={},
+            that.inputOther=[],
+            that.optionsChild=[],
+            that.inputOtherString=[],
             that.pending = true;
-            await that.axios.get("properties/"+that.subCategory_id.subCategory).then(function (response) {
+            that.axios.get("properties/"+that.subCategory_id.subCategory).then(function (response) {
                 that.properties = response.data;
                 that.pending = false;
+                for(let i =0; i<100;i++)
+                {
+                    that.optionsChild[i] = {};
+                    that.optionsChildChild[i] = {};
+
+                }
             });
         },
-        async getCategories() {
-            let that = this;
-            that.pending = true;
-            await that.axios.get("categories").then(function (response) {
+        async getCategories()
+        {
+
+                let that = this;
+
+                that.properties=[],
+                that.optionData={},
+                that.optionsChild=[],
+                that.inputOther=[],
+                that.inputOtherString=[],
+                that.pending = true;
+                that.axios.get("categories").then(function (response) {
                 that.pending = false;
                 that.categories = response.data;
+                for(let i =0; i<100;i++)
+                {
+                    that.inputOther[i] = 0;
+                }
             });
         },
         async create()
         {
             let that = this;
-            console.log(this.subCategories);
-            console.log(this.subCategory_id);
-            console.log(this.optionData);
-            console.log(this.inputOtherString);
             this.form.categoryName = this.subCategories.name;
             this.form.subCategoryName = this.subCategory_id.name;
             this.form.options = [];
             this.form.other = this.inputOtherString;
            let index = 0;
+           console.log(this.optionData);
             for(const item in this.optionData)
             {
-                this.form.options[index] = this.optionData[item];
+                this.form.options.push(this.optionData[item]);
                 index++;
             }
             await that.axios.post( 'postData', this.form).then(function(res)
@@ -119,6 +165,7 @@ export default {
     <Layout>
         <PageHeader :title="title" />
         <div class="row">
+
             <div class="col-12">
                 <div class="card" id="error_area">
                     <div class="card-body">
@@ -128,10 +175,13 @@ export default {
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
+
                                             <label>Main Category</label>
                                             <select
+                                                autocomplete="on"
+                                                @change="getCategories($event)"
                                                 v-model="subCategories"
-                                                class="custom-select" required>
+                                                 required>
                                                 <option disabled selected>Choose Main Category</option>
                                                 <option v-bind:value="{ category_id: category.id, children: category.children,name:category.name }" v-for="category in categories" :key="category.id">
                                                     {{ category.name }}
@@ -161,6 +211,7 @@ export default {
                                         <div class="form-group">
                                             <label>{{property.name}}</label>
                                             <select @change="getChildOptions($event)" v-model="optionData[index]" class="custom-select" >
+                                                <option value="">Choose Option</option>
                                                 <option v-bind:value="{
                                                 option_id: option.id,
                                                 child:option.child,
@@ -171,16 +222,33 @@ export default {
                                                     {{ option.name }}
                                                 </option>
                                                 <option v-bind:value="{value:'Other',property_name:property.name,index:index,}">Other</option>
-                                            </select><br>
-                                            <input v-model="inputOtherString[index]" type="text" class="form-control" v-if="inputOther[index]==1">
-<!--                                            <label v-if="optionsChild.length!=0 && optionsChild.property_id==index">{{optionsChild.name}}</label>-->
-<!--                                            <select v-if="optionsChild.length!=0 && optionsChild.property_id==index" @change="getChildOptions($event)" v-model="optionData[index]" class="custom-select" required >-->
-<!--                                                <option v-bind:value="{ option_id: option.id,child:option.child,value:option.name,index:index }" v-for="option in optionsChild.options" :key="option.id">-->
-<!--                                                    {{ option.name }}-->
-<!--                                                </option>-->
-<!--                                            </select><br>-->
+                                            </select>
 
-                                            <RecursiveOptions :optionsChild="optionsChild" :optionData="optionData" :index="index"></RecursiveOptions>
+                                            <label v-if="inputOther[index]==1">Other Input</label>
+                                            <input v-model="inputOtherString[index]" type="text" class="form-control" v-if="inputOther[index]==1">
+                                            <label v-if="optionsChild[index].property_id==index">{{optionsChild[index].name}}</label>
+
+                                            <select v-if="optionsChild[index].property_id==index" @change="getChildChildOptions($event)" v-model="optionData[optionsChild[index].id]" class="custom-select" required >
+                                                <option v-bind:value="{ option_id: option.id,
+                                                child:option.child,
+                                                value:option.name,
+                                                index:index,
+                                                 property_name:optionsChild[index].name}" v-for="option in optionsChild[index].options" :key="option.id">
+                                                    {{ option.name }}
+                                                </option>
+                                            </select>
+                                            <label v-if="optionsChildChild[optionsChild[index].id] && optionsChildChild[optionsChild[index].id].property_id==index">{{optionsChildChild[optionsChild[index].id].name}}</label>
+                                            <select v-if="optionsChildChild[optionsChild[index].id] && optionsChildChild[optionsChild[index].id].property_id==index" v-model="optionData[optionsChildChild[optionsChild[index].id].id]" class="custom-select" required >
+                                                <option v-bind:value="{ option_id: option.id,
+                                                child:option.child,
+                                                value:option.name,
+                                                index:index,
+                                                 property_name:optionsChildChild[optionsChild[index].id].name}" v-for="option in optionsChildChild[optionsChild[index].id].options" :key="option.id">
+                                                    {{ option.name }}
+                                                </option>
+                                            </select>
+
+                                            <!--                                            <RecursiveOptions :optionsChild="optionsChild" :optionData="optionData" :index="index"></RecursiveOptions>-->
                                         </div>
                                     </div>
                                 </div>

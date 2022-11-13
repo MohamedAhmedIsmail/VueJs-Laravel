@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4d85d73e-7b48-40cc-af2c-ee7ec2a33889" name="Default Changelist" comment="" />
+    <list default="true" id="4d85d73e-7b48-40cc-af2c-ee7ec2a33889" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Classes/DataHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/DataHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Apis/DataHandlerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Apis/DataHandlerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/resources_js_views_pages_dashboard_index_vue.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/resources_js_views_pages_dashboard_index_vue.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/router/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/pages/dashboard/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/pages/dashboard/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/pages/dashboard/recursiveOptions.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/pages/dashboard/recursiveOptions.vue" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,6 +23,9 @@
     <execution>
       <executable />
     </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -153,6 +167,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="2HFu8SN7uAnfxzKI60LGer2X7Ru" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -197,6 +212,13 @@
       <workItem from="1667903433486" duration="20482000" />
       <workItem from="1667934837293" duration="9818000" />
       <workItem from="1667979770608" duration="12711000" />
+      <workItem from="1668006295402" duration="9000" />
+      <workItem from="1668080490783" duration="236000" />
+      <workItem from="1668080730392" duration="773000" />
+      <workItem from="1668083069333" duration="684000" />
+      <workItem from="1668336452891" duration="5888000" />
+      <workItem from="1668345236130" duration="14236000" />
+      <workItem from="1668366927461" duration="3998000" />
     </task>
     <servers />
   </component>
@@ -208,18 +230,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1667918295740" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1667994616312">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1668366232883">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1667994616312" />
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1667979906410">
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1668366232883" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1668366927328">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1667979906410" />
-    <state x="379" y="96" width="607" height="536" key="find.popup" timestamp="1667897007923">
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1668366927328" />
+    <state x="379" y="96" width="607" height="536" key="find.popup" timestamp="1668361911130">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="96" width="607" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1667897007923" />
+    <state x="379" y="96" width="607" height="536" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1668361911130" />
     <state x="339" y="17" width="672" height="676" key="search.everywhere.popup" timestamp="1667930011619">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

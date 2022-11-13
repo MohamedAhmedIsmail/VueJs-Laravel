@@ -8,7 +8,7 @@ class DataHandler
         {
             for($j=0;$j<count($options);$j++)
             {
-                if(isset($others[$i]) && $i == $options[$j]['index'])
+                if(isset($options[$j]['index']) && (isset($others[$i]) && $i == $options[$j]['index']))
                 {
                     $data['options'][$i]['value'] = $others[$i];
                 }
@@ -32,7 +32,10 @@ class DataHandler
             {
                 for($i=0;$i<count($value);$i++)
                 {
-                    $object[$value[$i]['property_name']] = $value[$i]['value'];
+                    if(isset($value[$i]['property_name']) && $value[$i]['value']!='Other')
+                    {
+                        $object[$value[$i]['property_name']] = $value[$i]['value'];
+                    }
                 }
             }
         }
