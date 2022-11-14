@@ -4,16 +4,18 @@ class DataHandler
 {
     public function handleOptionsData($others,$options,$data)
     {
+//        dd($data);
         for($i=0;$i<count($others);$i++)
         {
             for($j=0;$j<count($options);$j++)
             {
                 if(isset($options[$j]['index']) && (isset($others[$i]) && $i == $options[$j]['index']))
                 {
-                    $data['options'][$i]['value'] = $others[$i];
+                    $data['options'][$j]['value'] = $others[$i];
                 }
             }
         }
+//        dd($data);
         return $data;
     }
 
@@ -39,6 +41,7 @@ class DataHandler
                 }
             }
         }
+//        dd($object);
         return $object;
     }
 }

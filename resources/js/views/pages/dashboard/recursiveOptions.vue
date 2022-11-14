@@ -1,23 +1,23 @@
 <template>
     <div>
-<!--        <div >-->
-<!--            <label v-if=" optionsChild[index].property_id==index">{{optionsChild.name}}</label>-->
-<!--            <select v-if="optionsChild[index].property_id==index" @change="getChildOptions($event)" v-model="somedataCopy[optionsChild[index].id]" class="custom-select" >-->
-<!--                <option v-bind:value="{ option_id: option.id,child:option.child,value:option.name,index:optionsChild[index].id,property_name: optionsChild.name}" v-for="option in optionsChild[index].options" :key="option.id">-->
-<!--                    {{ option.name }}-->
-<!--                </option>-->
-<!--            </select>-->
+        <div >
+            <label v-if=" optionsChild[index].property_id==index">{{optionsChild.name}}</label>
+            <select v-if="optionsChild[index].property_id==index" @change="getChildOptions($event)" v-model="somedataCopy[optionsChild[index].id]" class="custom-select" >
+                <option v-bind:value="{ option_id: option.id,child:option.child,value:option.name,index:optionsChild[index].id,property_name: optionsChild.name}" v-for="option in optionsChild[index].options" :key="option.id">
+                    {{ option.name }}
+                </option>
+            </select>
 
-<!--            <RecursiveOptions v-for="option in optionsChild[index].options" :key="option.id" v-if="option.child==true && optionsChild[index].id==option.parent" :optionsChild="somedataNew" :optionData="somedataCopy" :index="optionsChild[index].id"/>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <label v-if="somedataNew.length!=0 && somedataNew.property_id==index">{{somedataNew.name}}</label>-->
-<!--            <select v-if="somedataNew.length!=0 && somedataNew.property_id==index" @change="getChildOptions($event)" v-model="somedataCopy[index]" class="custom-select" >-->
-<!--                <option v-bind:value="{ option_id: option.id,child:option.child,value:option.name,index:index,property_name: somedataNew.name }" v-for="option in somedataNew.options" :key="option.id">-->
-<!--                    {{ option.name }}-->
-<!--                </option>-->
-<!--            </select>-->
-<!--        </div>-->
+            <RecursiveOptions v-for="option in optionsChild[index].options" :key="option.id" v-if="option.child==true && optionsChild[index].id==option.parent" :optionsChild="somedataNew" :optionData="somedataCopy" :index="optionsChild[index].id"/>
+        </div>
+        <div>
+            <label v-if="somedataNew.length!=0 && somedataNew.property_id==index">{{somedataNew.name}}</label>
+            <select v-if="somedataNew.length!=0 && somedataNew.property_id==index" @change="getChildOptions($event)" v-model="somedataCopy[index]" class="custom-select" >
+                <option v-bind:value="{ option_id: option.id,child:option.child,value:option.name,index:index,property_name: somedataNew.name }" v-for="option in somedataNew.options" :key="option.id">
+                    {{ option.name }}
+                </option>
+            </select>
+        </div>
     </div>
 </template>
 

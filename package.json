@@ -41,6 +41,7 @@
         "vue-qrcode-component": "^2.1.1",
         "vue-router": "^3.4.9",
         "vue-select": "^3.20.0",
+        "vue-simple-search-dropdown": "^1.0.1",
         "vue-simplebar": "^2.3.0",
         "vue-socket.io": "^3.0.10",
         "vue-sweetalert2": "^4.1.1",
