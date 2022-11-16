@@ -27,7 +27,7 @@ export default {
         errors: null,
         submitted: false,
         pending: false,
-        sizes: ['Small', 'Medium', 'Large', 'Extra Large'],
+        disable:false,
         categories:[],
         properties:[],
         optionData:{},
@@ -35,32 +35,42 @@ export default {
         optionsChildChild:[],
         inputOther:[],
         inputOtherString:[],
-        form:{}
+        form:{},
+        c:0
 
     };
   },
 
     methods: {
-      async getChildChildOptions(event)
-      {
+
+        async getChildChildOptions(event) {
           let that = this;
+          that.disable = true;
+          console.log("here");
+          console.log(that.optionData);
+          console.log("-----------------");
           for(const index in that.optionData) {
               let arr = that.optionData[index].split('-');
               if (arr[0] == 'true') {
                   that.axios.get("options-child/" + arr[4] + '/' + arr[1]).then(function (response) {
-
+                      that.disable = false;
                       Vue.set(that.optionsChildChild, index, response.data);
+                      console.log(that.optionsChildChild);
                       that.pending = false;
                   });
-
+                  console.log("end");
+              }
+              else{
+                  that.disable = false;
               }
           }
       },
-        async getChildOptions(event)
-        {
+        async getChildOptions(event) {
             let that = this;
+            console.log(that.optionData);
             for(const index in that.optionData)
             {
+                console.log(index);
                 let arrData = that.optionData[index].split("-");
                 if(arrData[2] == 'Other')
                 {
@@ -70,20 +80,23 @@ export default {
                 {
                     that.inputOther[index] = 0;
                 }
-                if(arrData[0] == "true")
+                if(arrData[0] == "true" && arrData[4]==index)
                 {
                     that.axios.get("options-child/"+arrData[4]+'/'+arrData[1]).then(function (response) {
-                         // that.optionsChild[index] = response.data;
+                        that.disable = false;
                          Vue.set(that.optionsChild,index,response.data);
                         that.pending = false;
-                    });
 
+                    });
+                }
+                else{
+                    that.disable = false;
                 }
             }
         },
-        async onChange(event)
-        {
+        async onChange(event) {
             let that = this;
+            that.disable = true;
             that.properties=[],
             that.optionData={},
             that.inputOther=[],
@@ -92,6 +105,7 @@ export default {
             that.pending = true;
             that.axios.get("properties/"+that.subCategory_id.id).then(function (response) {
                 that.properties = response.data;
+                that.disable = false;
                 let selectObject = {
                     'child':false,
                     'id':-1,
@@ -111,18 +125,19 @@ export default {
                     that.properties[i].options.push(selectObject);
                     that.properties[i].options.push(object);
                 }
-                that.pending = false;
-                for(let i =0; i<100;i++)
-                {
-                    that.optionsChild[i] = {};
-                    that.optionsChildChild[i] = {};
 
-                }
+                // for(let i =0; i<1;i++)
+                // {
+                //     that.optionsChild[i] = {};
+                //     that.optionsChildChild[i] = {};
+                //
+                // }
+                that.pending = false;
             });
         },
-        async getCategories()
-        {
+        async getCategories() {
                 let that = this;
+                that.disable = true;
                 that.subCategory_id='',
                 that.properties=[],
                 that.optionData={},
@@ -132,15 +147,16 @@ export default {
                 that.pending = true;
                 that.axios.get("categories").then(function (response) {
                 that.pending = false;
+                that.disable = false;
                 that.categories = response.data;
                 for(let i =0; i<100;i++)
                 {
                     that.inputOther[i] = 0;
                 }
             });
+
         },
-        handleCategoryData()
-        {
+        handleCategoryData() {
             let object=[];
             for(let i =0;i<this.categories.length;i++)
             {
@@ -148,8 +164,7 @@ export default {
             }
             return object;
         },
-        async create()
-        {
+        async create() {
             let that = this;
             this.form.categoryName = this.subCategories.name;
             this.form.subCategoryName = this.subCategory_id.name;
@@ -171,7 +186,6 @@ export default {
                 }
                 index++;
             }
-            console.log(this.form);
             await that.axios.post( 'postData', this.form).then(function(res)
             {
                 that.submitted = false;
@@ -211,7 +225,7 @@ export default {
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Main Category</label>
-                                            <v-select v-model="subCategories" label="name" :options="categories" @input="getCategories($event)"></v-select>
+                                            <v-select v-model="subCategories" label="name" :options="categories" @input="getCategories($event)" :disabled="disable" :clearable="false"></v-select>
 
                                         </div>
                                     </div>
@@ -220,7 +234,7 @@ export default {
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Sub Category</label>
-                                            <v-select v-model="subCategory_id" label="name" :options="subCategories.children" @input="onChange($event)"></v-select>
+                                            <v-select v-model="subCategory_id" label="name" :options="subCategories.children" @input="onChange($event)" :disabled="disable" :clearable="false"></v-select>
 
                                         </div>
                                     </div>
@@ -230,23 +244,31 @@ export default {
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>{{property.name}}</label>
-                                            <v-select v-model="optionData[index]" label="name" :options="property.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${property.name}-${index}`"   @input="getChildOptions($event)" return-object>
+                                            <v-select v-model="optionData[index]" label="name" :options="property.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${property.name}-${index}`"   @input="getChildOptions($event)" :disabled="disable" :clearable="false">
                                                 <template v-slot:option="option"> {{option.name}} </template>
                                             </v-select>
 
                                             <label v-if="inputOther[index]==1">Other Input</label>
                                             <input v-model="inputOtherString[index]" type="text" class="form-control" v-if="inputOther[index]==1">
-                                            <label v-if="optionsChild[index].property_id==index">{{optionsChild[index].name}}</label>
 
-                                            <v-select v-if="optionsChild[index].property_id==index" v-model="optionData[optionsChild[index].id]" label="name" :options="optionsChild[index].options" :reduce="option => `${option.child}-${option.id}-${option.name}-${optionsChild[index].name}-${index}`"   @input="getChildChildOptions($event)" return-object>
-                                                <template v-slot:option="option"> {{option.name}} </template>
-                                            </v-select>
+                                            <div v-for="optionChild in optionsChild">
+                                                <div v-if="optionChild!=null" v-for="child in optionChild">
+                                                    <label v-if="child.property_id==index">{{child.name}}</label>
+                                                    <v-select v-if="child.property_id==index" v-model="optionData[child.id]" label="name" :options="child.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${child.name}-${index}`"   @input="getChildChildOptions($event)" :disabled="disable" :clearable="false">
+                                                        <template v-slot:option="option"> {{option.name}} </template>
+                                                    </v-select>
 
-                                            <label v-if="optionsChildChild[optionsChild[index].id] && optionsChildChild[optionsChild[index].id].property_id==index">{{optionsChildChild[optionsChild[index].id].name}}</label>
+                                                    <div v-for="optionChildChild in optionsChildChild[child.id]">
+                                                        <label v-if="optionChildChild!=null && optionChildChild.property_id==index">{{optionChildChild.name}}</label>
 
-                                            <v-select v-if="optionsChildChild[optionsChild[index].id] && optionsChildChild[optionsChild[index].id].property_id==index" v-model="optionData[optionsChildChild[optionsChild[index].id].id]" label="name" :options="optionsChildChild[optionsChild[index].id].options" :reduce="option => `${option.child}-${option.id}-${option.name}-${optionsChildChild[optionsChild[index].id].name}-${index}`">
-                                                <template v-slot:option="option"> {{option.name}} </template>
-                                            </v-select>
+                                                        <v-select v-if="optionChildChild!=null && optionChildChild.property_id==index" v-model="optionData[optionChildChild.id]" label="name" :options="optionChildChild.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${optionChildChild.name}-${index}`" :disabled="disable" :clearable="false">
+                                                            <template v-slot:option="option"> {{option.name}} </template>
+                                                        </v-select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
 
 
 <!--                                            <RecursiveOptions :optionsChild="optionsChild" :optionData="optionData" :index="index"></RecursiveOptions>-->

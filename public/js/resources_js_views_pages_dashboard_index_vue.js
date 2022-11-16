@@ -2065,7 +2065,7 @@ __webpack_require__.r(__webpack_exports__);
       errors: null,
       submitted: false,
       pending: false,
-      sizes: ['Small', 'Medium', 'Large', 'Extra Large'],
+      disable: false,
       categories: [],
       properties: [],
       optionData: {},
@@ -2073,7 +2073,8 @@ __webpack_require__.r(__webpack_exports__);
       optionsChildChild: [],
       inputOther: [],
       inputOtherString: [],
-      form: {}
+      form: {},
+      c: 0
     };
   },
   methods: {
@@ -2088,15 +2089,24 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context.prev = _context.next) {
               case 0:
                 that = _this;
+                that.disable = true;
+                console.log("here");
+                console.log(that.optionData);
+                console.log("-----------------");
 
                 _loop = function _loop(index) {
                   var arr = that.optionData[index].split('-');
 
                   if (arr[0] == 'true') {
                     that.axios.get("options-child/" + arr[4] + '/' + arr[1]).then(function (response) {
+                      that.disable = false;
                       vue__WEBPACK_IMPORTED_MODULE_9__["default"].set(that.optionsChildChild, index, response.data);
+                      console.log(that.optionsChildChild);
                       that.pending = false;
                     });
+                    console.log("end");
+                  } else {
+                    that.disable = false;
                   }
                 };
 
@@ -2104,7 +2114,7 @@ __webpack_require__.r(__webpack_exports__);
                   _loop(index);
                 }
 
-              case 3:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -2123,8 +2133,10 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context2.prev = _context2.next) {
               case 0:
                 that = _this2;
+                console.log(that.optionData);
 
                 _loop2 = function _loop2(index) {
+                  console.log(index);
                   var arrData = that.optionData[index].split("-");
 
                   if (arrData[2] == 'Other') {
@@ -2133,12 +2145,14 @@ __webpack_require__.r(__webpack_exports__);
                     that.inputOther[index] = 0;
                   }
 
-                  if (arrData[0] == "true") {
+                  if (arrData[0] == "true" && arrData[4] == index) {
                     that.axios.get("options-child/" + arrData[4] + '/' + arrData[1]).then(function (response) {
-                      // that.optionsChild[index] = response.data;
+                      that.disable = false;
                       vue__WEBPACK_IMPORTED_MODULE_9__["default"].set(that.optionsChild, index, response.data);
                       that.pending = false;
                     });
+                  } else {
+                    that.disable = false;
                   }
                 };
 
@@ -2146,7 +2160,7 @@ __webpack_require__.r(__webpack_exports__);
                   _loop2(index);
                 }
 
-              case 3:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -2164,9 +2178,11 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context3.prev = _context3.next) {
               case 0:
                 that = _this3;
+                that.disable = true;
                 that.properties = [], that.optionData = {}, that.inputOther = [], that.optionsChild = [], that.inputOtherString = [], that.pending = true;
                 that.axios.get("properties/" + that.subCategory_id.id).then(function (response) {
                   that.properties = response.data;
+                  that.disable = false;
                   var selectObject = {
                     'child': false,
                     'id': -1,
@@ -2185,17 +2201,18 @@ __webpack_require__.r(__webpack_exports__);
                   for (var i = 0; i < that.properties.length; i++) {
                     that.properties[i].options.push(selectObject);
                     that.properties[i].options.push(object);
-                  }
+                  } // for(let i =0; i<1;i++)
+                  // {
+                  //     that.optionsChild[i] = {};
+                  //     that.optionsChildChild[i] = {};
+                  //
+                  // }
+
 
                   that.pending = false;
-
-                  for (var _i = 0; _i < 100; _i++) {
-                    that.optionsChild[_i] = {};
-                    that.optionsChildChild[_i] = {};
-                  }
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -2213,9 +2230,11 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context4.prev = _context4.next) {
               case 0:
                 that = _this4;
+                that.disable = true;
                 that.subCategory_id = '', that.properties = [], that.optionData = {}, that.optionsChild = [], that.inputOther = [], that.inputOtherString = [], that.pending = true;
                 that.axios.get("categories").then(function (response) {
                   that.pending = false;
+                  that.disable = false;
                   that.categories = response.data;
 
                   for (var i = 0; i < 100; i++) {
@@ -2223,7 +2242,7 @@ __webpack_require__.r(__webpack_exports__);
                   }
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context4.stop();
             }
@@ -2276,8 +2295,7 @@ __webpack_require__.r(__webpack_exports__);
                   index++;
                 }
 
-                console.log(_this5.form);
-                _context5.next = 10;
+                _context5.next = 9;
                 return that.axios.post('postData', _this5.form).then(function (res) {
                   that.submitted = false;
                   that.$router.push({
@@ -2292,7 +2310,7 @@ __webpack_require__.r(__webpack_exports__);
                   }
                 });
 
-              case 10:
+              case 9:
               case "end":
                 return _context5.stop();
             }
@@ -11484,7 +11502,9 @@ var render = function() {
                               _c("v-select", {
                                 attrs: {
                                   label: "name",
-                                  options: _vm.categories
+                                  options: _vm.categories,
+                                  disabled: _vm.disable,
+                                  clearable: false
                                 },
                                 on: {
                                   input: function($event) {
@@ -11516,7 +11536,9 @@ var render = function() {
                               _c("v-select", {
                                 attrs: {
                                   label: "name",
-                                  options: _vm.subCategories.children
+                                  options: _vm.subCategories.children,
+                                  disabled: _vm.disable,
+                                  clearable: false
                                 },
                                 on: {
                                   input: function($event) {
@@ -11563,7 +11585,8 @@ var render = function() {
                                         index
                                       )
                                     },
-                                    "return-object": ""
+                                    disabled: _vm.disable,
+                                    clearable: false
                                   },
                                   on: {
                                     input: function($event) {
@@ -11629,165 +11652,190 @@ var render = function() {
                                     })
                                   : _vm._e(),
                                 _vm._v(" "),
-                                _vm.optionsChild[index].property_id == index
-                                  ? _c("label", [
-                                      _vm._v(
-                                        _vm._s(_vm.optionsChild[index].name)
-                                      )
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.optionsChild[index].property_id == index
-                                  ? _c("v-select", {
-                                      attrs: {
-                                        label: "name",
-                                        options:
-                                          _vm.optionsChild[index].options,
-                                        reduce: function(option) {
-                                          return (
-                                            option.child +
-                                            "-" +
-                                            option.id +
-                                            "-" +
-                                            option.name +
-                                            "-" +
-                                            _vm.optionsChild[index].name +
-                                            "-" +
-                                            index
+                                _vm._l(_vm.optionsChild, function(optionChild) {
+                                  return _c(
+                                    "div",
+                                    _vm._l(optionChild, function(child) {
+                                      return optionChild != null
+                                        ? _c(
+                                            "div",
+                                            [
+                                              child.property_id == index
+                                                ? _c("label", [
+                                                    _vm._v(_vm._s(child.name))
+                                                  ])
+                                                : _vm._e(),
+                                              _vm._v(" "),
+                                              child.property_id == index
+                                                ? _c("v-select", {
+                                                    attrs: {
+                                                      label: "name",
+                                                      options: child.options,
+                                                      reduce: function(option) {
+                                                        return (
+                                                          option.child +
+                                                          "-" +
+                                                          option.id +
+                                                          "-" +
+                                                          option.name +
+                                                          "-" +
+                                                          child.name +
+                                                          "-" +
+                                                          index
+                                                        )
+                                                      },
+                                                      disabled: _vm.disable,
+                                                      clearable: false
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        return _vm.getChildChildOptions(
+                                                          $event
+                                                        )
+                                                      }
+                                                    },
+                                                    scopedSlots: _vm._u(
+                                                      [
+                                                        {
+                                                          key: "option",
+                                                          fn: function(option) {
+                                                            return [
+                                                              _vm._v(
+                                                                " " +
+                                                                  _vm._s(
+                                                                    option.name
+                                                                  ) +
+                                                                  " "
+                                                              )
+                                                            ]
+                                                          }
+                                                        }
+                                                      ],
+                                                      null,
+                                                      true
+                                                    ),
+                                                    model: {
+                                                      value:
+                                                        _vm.optionData[
+                                                          child.id
+                                                        ],
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          _vm.optionData,
+                                                          child.id,
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "optionData[child.id]"
+                                                    }
+                                                  })
+                                                : _vm._e(),
+                                              _vm._v(" "),
+                                              _vm._l(
+                                                _vm.optionsChildChild[child.id],
+                                                function(optionChildChild) {
+                                                  return _c(
+                                                    "div",
+                                                    [
+                                                      optionChildChild !=
+                                                        null &&
+                                                      optionChildChild.property_id ==
+                                                        index
+                                                        ? _c("label", [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                optionChildChild.name
+                                                              )
+                                                            )
+                                                          ])
+                                                        : _vm._e(),
+                                                      _vm._v(" "),
+                                                      optionChildChild !=
+                                                        null &&
+                                                      optionChildChild.property_id ==
+                                                        index
+                                                        ? _c("v-select", {
+                                                            attrs: {
+                                                              label: "name",
+                                                              options:
+                                                                optionChildChild.options,
+                                                              reduce: function(
+                                                                option
+                                                              ) {
+                                                                return (
+                                                                  option.child +
+                                                                  "-" +
+                                                                  option.id +
+                                                                  "-" +
+                                                                  option.name +
+                                                                  "-" +
+                                                                  optionChildChild.name +
+                                                                  "-" +
+                                                                  index
+                                                                )
+                                                              },
+                                                              disabled:
+                                                                _vm.disable,
+                                                              clearable: false
+                                                            },
+                                                            scopedSlots: _vm._u(
+                                                              [
+                                                                {
+                                                                  key: "option",
+                                                                  fn: function(
+                                                                    option
+                                                                  ) {
+                                                                    return [
+                                                                      _vm._v(
+                                                                        " " +
+                                                                          _vm._s(
+                                                                            option.name
+                                                                          ) +
+                                                                          " "
+                                                                      )
+                                                                    ]
+                                                                  }
+                                                                }
+                                                              ],
+                                                              null,
+                                                              true
+                                                            ),
+                                                            model: {
+                                                              value:
+                                                                _vm.optionData[
+                                                                  optionChildChild
+                                                                    .id
+                                                                ],
+                                                              callback: function(
+                                                                $$v
+                                                              ) {
+                                                                _vm.$set(
+                                                                  _vm.optionData,
+                                                                  optionChildChild.id,
+                                                                  $$v
+                                                                )
+                                                              },
+                                                              expression:
+                                                                "optionData[optionChildChild.id]"
+                                                            }
+                                                          })
+                                                        : _vm._e()
+                                                    ],
+                                                    1
+                                                  )
+                                                }
+                                              )
+                                            ],
+                                            2
                                           )
-                                        },
-                                        "return-object": ""
-                                      },
-                                      on: {
-                                        input: function($event) {
-                                          return _vm.getChildChildOptions(
-                                            $event
-                                          )
-                                        }
-                                      },
-                                      scopedSlots: _vm._u(
-                                        [
-                                          {
-                                            key: "option",
-                                            fn: function(option) {
-                                              return [
-                                                _vm._v(
-                                                  " " +
-                                                    _vm._s(option.name) +
-                                                    " "
-                                                )
-                                              ]
-                                            }
-                                          }
-                                        ],
-                                        null,
-                                        true
-                                      ),
-                                      model: {
-                                        value:
-                                          _vm.optionData[
-                                            _vm.optionsChild[index].id
-                                          ],
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.optionData,
-                                            _vm.optionsChild[index].id,
-                                            $$v
-                                          )
-                                        },
-                                        expression:
-                                          "optionData[optionsChild[index].id]"
-                                      }
-                                    })
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.optionsChildChild[
-                                  _vm.optionsChild[index].id
-                                ] &&
-                                _vm.optionsChildChild[
-                                  _vm.optionsChild[index].id
-                                ].property_id == index
-                                  ? _c("label", [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.optionsChildChild[
-                                            _vm.optionsChild[index].id
-                                          ].name
-                                        )
-                                      )
-                                    ])
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _vm.optionsChildChild[
-                                  _vm.optionsChild[index].id
-                                ] &&
-                                _vm.optionsChildChild[
-                                  _vm.optionsChild[index].id
-                                ].property_id == index
-                                  ? _c("v-select", {
-                                      attrs: {
-                                        label: "name",
-                                        options:
-                                          _vm.optionsChildChild[
-                                            _vm.optionsChild[index].id
-                                          ].options,
-                                        reduce: function(option) {
-                                          return (
-                                            option.child +
-                                            "-" +
-                                            option.id +
-                                            "-" +
-                                            option.name +
-                                            "-" +
-                                            _vm.optionsChildChild[
-                                              _vm.optionsChild[index].id
-                                            ].name +
-                                            "-" +
-                                            index
-                                          )
-                                        }
-                                      },
-                                      scopedSlots: _vm._u(
-                                        [
-                                          {
-                                            key: "option",
-                                            fn: function(option) {
-                                              return [
-                                                _vm._v(
-                                                  " " +
-                                                    _vm._s(option.name) +
-                                                    " "
-                                                )
-                                              ]
-                                            }
-                                          }
-                                        ],
-                                        null,
-                                        true
-                                      ),
-                                      model: {
-                                        value:
-                                          _vm.optionData[
-                                            _vm.optionsChildChild[
-                                              _vm.optionsChild[index].id
-                                            ].id
-                                          ],
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.optionData,
-                                            _vm.optionsChildChild[
-                                              _vm.optionsChild[index].id
-                                            ].id,
-                                            $$v
-                                          )
-                                        },
-                                        expression:
-                                          "optionData[optionsChildChild[optionsChild[index].id].id]"
-                                      }
-                                    })
-                                  : _vm._e()
+                                        : _vm._e()
+                                    }),
+                                    0
+                                  )
+                                })
                               ],
-                              1
+                              2
                             )
                           ])
                         ])

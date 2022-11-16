@@ -18,8 +18,11 @@ class OptionsController extends Controller
     {
         $response = $this->optionService->getOptions($optionID);
         $response = json_decode($response);
-        $properties = $response->data[0];
-        $properties->property_id = $property_id;
+        $properties = $response->data;
+        foreach($properties as $property)
+        {
+            $property->property_id = $property_id;
+        }
         return $properties;
     }
 }
