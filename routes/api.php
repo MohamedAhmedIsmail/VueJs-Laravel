@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 /***************************** AUTH **************************************/
-Route::middleware('web')->post('login', 'App\Http\Controllers\Apis\AuthController@login');
+Route::middleware('web')->post('login', 'App\Http\Controllers\Apis\AuthController@login')->name('login');
 Route::middleware('auth:sanctum')->get("/refresh", 'App\Http\Controllers\Apis\AuthController@refresh');
 Route::post('logout', 'App\Http\Controllers\Apis\AuthController@logout');
 /*************************************************************************/
