@@ -17,6 +17,6 @@ export default [
         meta: { middleware: "auth" },
         component: () => import ('../views/pages/dashboard/showData.vue')
     },
-
+   
 
 ]
