@@ -13,6 +13,10 @@ class DataHandler
                 {
                     $data['options'][$j]['value'] = $others[$i];
                 }
+                else if(isset($options[$j]['index']) && (isset($others[$i]) && $i == $options[$j]['option_id']))
+                {
+                    $data['options'][$j]['value'] = $others[$i];
+                }
             }
         }
 //        dd($data);

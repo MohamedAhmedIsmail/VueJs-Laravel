@@ -43,22 +43,78 @@ export default {
 
     methods: {
 
+        async otherChildChildInput(event){
+            let that = this;
+            for(const index in that.optionData)
+            {
+                // console.log('index=',index);
+                let arr = that.optionData[index].split('-');
+                if(arr[2] == 'Other')
+                {
+                    // console.log("here");
+                    that.inputOther[index] = 1;
+                }
+                else
+                {
+                    // console.log("here else");
+                    that.inputOther[index] = 0;
+                }
+
+            }
+        },
         async getChildChildOptions(event) {
           let that = this;
           that.disable = true;
-          console.log("here");
-          console.log(that.optionData);
-          console.log("-----------------");
-          for(const index in that.optionData) {
+          // console.log("here");
+          // console.log(that.optionData);
+          // console.log("-----------------");
+          for(const index in that.optionData)
+          {
+              // console.log('index=',index);
               let arr = that.optionData[index].split('-');
-              if (arr[0] == 'true') {
+              if(arr[2] == 'Other')
+              {
+                  // console.log("here");
+                  that.inputOther[index] = 1;
+              }
+              else
+              {
+                  // console.log("here else");
+                  that.inputOther[index] = 0;
+              }
+              if (arr[0] == 'true')
+              {
                   that.axios.get("options-child/" + arr[4] + '/' + arr[1]).then(function (response) {
                       that.disable = false;
                       Vue.set(that.optionsChildChild, index, response.data);
-                      console.log(that.optionsChildChild);
+                      // console.log(that.optionsChildChild);
+                      let selectObject = {
+                          'child':false,
+                          'id':-1,
+                          'name':'Select Value',
+                          'parent':-1,
+                          'slug':'select value'
+                      };
+                      for(let i=index;i<=that.optionsChildChild.length;i++)
+                      {
+                          if(that.optionsChildChild[i]){
+                              for(let j =0;j<that.optionsChildChild[i].length; j++)
+                              {
+                                  let object = {
+                                      'child':false,
+                                      'id':that.optionsChildChild[i][j].id,
+                                      'name':'Other',
+                                      'parent':0,
+                                      'slug':'other'
+                                  };
+                                  that.optionsChildChild[i][j].options.push(selectObject);
+                                  that.optionsChildChild[i][j].options.push(object);
+                              }
+                          }
+                      }
                       that.pending = false;
                   });
-                  console.log("end");
+                  // console.log("end");
               }
               else{
                   that.disable = false;
@@ -67,10 +123,8 @@ export default {
       },
         async getChildOptions(event) {
             let that = this;
-            console.log(that.optionData);
             for(const index in that.optionData)
             {
-                console.log(index);
                 let arrData = that.optionData[index].split("-");
                 if(arrData[2] == 'Other')
                 {
@@ -85,8 +139,33 @@ export default {
                     that.axios.get("options-child/"+arrData[4]+'/'+arrData[1]).then(function (response) {
                         that.disable = false;
                          Vue.set(that.optionsChild,index,response.data);
-                        that.pending = false;
+                        let selectObject = {
+                            'child':false,
+                            'id':-1,
+                            'name':'Select Value',
+                            'parent':-1,
+                            'slug':'select value'
+                        };
 
+                        console.log(that.optionsChild);
+                        for(let i=index;i<=that.optionsChild.length;i++)
+                        {
+                            if(that.optionsChild[i]){
+                                for(let j =0;j<that.optionsChild[i].length; j++)
+                                {
+                                    let object = {
+                                        'child':false,
+                                        'id':that.optionsChild[i][j].id,
+                                        'name':'Other',
+                                        'parent':0,
+                                        'slug':'other'
+                                    };
+                                    that.optionsChild[i][j].options.push(selectObject);
+                                    that.optionsChild[i][j].options.push(object);
+                                }
+                            }
+                        }
+                        that.pending = false;
                     });
                 }
                 else{
@@ -186,6 +265,7 @@ export default {
                 }
                 index++;
             }
+            console.log(this.form);
             await that.axios.post( 'postData', this.form).then(function(res)
             {
                 that.submitted = false;
@@ -257,13 +337,19 @@ export default {
                                                     <v-select v-if="child.property_id==index" v-model="optionData[child.id]" label="name" :options="child.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${child.name}-${index}`"   @input="getChildChildOptions($event)" :disabled="disable" :clearable="false">
                                                         <template v-slot:option="option"> {{option.name}} </template>
                                                     </v-select>
+                                                    <label v-if="inputOther[child.id]==1 && child.property_id==index">Other Input</label>
+                                                    <input v-model="inputOtherString[child.id]" type="text" class="form-control" v-if="inputOther[child.id]==1 && child.property_id==index">
 
                                                     <div v-for="optionChildChild in optionsChildChild[child.id]">
                                                         <label v-if="optionChildChild!=null && optionChildChild.property_id==index">{{optionChildChild.name}}</label>
 
-                                                        <v-select v-if="optionChildChild!=null && optionChildChild.property_id==index" v-model="optionData[optionChildChild.id]" label="name" :options="optionChildChild.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${optionChildChild.name}-${index}`" :disabled="disable" :clearable="false">
+                                                        <v-select v-if="optionChildChild!=null && optionChildChild.property_id==index" v-model="optionData[optionChildChild.id]" label="name" :options="optionChildChild.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${optionChildChild.name}-${index}`" @input="otherChildChildInput($event)" :disabled="disable" :clearable="false">
                                                             <template v-slot:option="option"> {{option.name}} </template>
                                                         </v-select>
+
+                                                        <label v-if="inputOther[optionChildChild.id]==1 && optionChildChild.property_id==index">Other Input</label>
+                                                        <input v-model="inputOtherString[optionChildChild.id]" type="text" class="form-control" v-if="inputOther[optionChildChild.id]==1 && optionChildChild.property_id==index">
+
                                                     </div>
                                                 </div>
 

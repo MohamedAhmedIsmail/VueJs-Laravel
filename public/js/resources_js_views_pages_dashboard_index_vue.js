@@ -2078,33 +2078,96 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    getChildChildOptions: function getChildChildOptions(event) {
+    otherChildChildInput: function otherChildChildInput(event) {
       var _this = this;
 
       return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
-        var that, _loop, index;
-
+        var that, index, arr;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 that = _this;
-                that.disable = true;
-                console.log("here");
-                console.log(that.optionData);
-                console.log("-----------------");
+
+                for (index in that.optionData) {
+                  // console.log('index=',index);
+                  arr = that.optionData[index].split('-');
+
+                  if (arr[2] == 'Other') {
+                    // console.log("here");
+                    that.inputOther[index] = 1;
+                  } else {
+                    // console.log("here else");
+                    that.inputOther[index] = 0;
+                  }
+                }
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getChildChildOptions: function getChildChildOptions(event) {
+      var _this2 = this;
+
+      return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2() {
+        var that, _loop, index;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                that = _this2;
+                that.disable = true; // console.log("here");
+                // console.log(that.optionData);
+                // console.log("-----------------");
 
                 _loop = function _loop(index) {
+                  // console.log('index=',index);
                   var arr = that.optionData[index].split('-');
+
+                  if (arr[2] == 'Other') {
+                    // console.log("here");
+                    that.inputOther[index] = 1;
+                  } else {
+                    // console.log("here else");
+                    that.inputOther[index] = 0;
+                  }
 
                   if (arr[0] == 'true') {
                     that.axios.get("options-child/" + arr[4] + '/' + arr[1]).then(function (response) {
                       that.disable = false;
-                      vue__WEBPACK_IMPORTED_MODULE_9__["default"].set(that.optionsChildChild, index, response.data);
-                      console.log(that.optionsChildChild);
+                      vue__WEBPACK_IMPORTED_MODULE_9__["default"].set(that.optionsChildChild, index, response.data); // console.log(that.optionsChildChild);
+
+                      var selectObject = {
+                        'child': false,
+                        'id': -1,
+                        'name': 'Select Value',
+                        'parent': -1,
+                        'slug': 'select value'
+                      };
+
+                      for (var i = index; i <= that.optionsChildChild.length; i++) {
+                        if (that.optionsChildChild[i]) {
+                          for (var j = 0; j < that.optionsChildChild[i].length; j++) {
+                            var object = {
+                              'child': false,
+                              'id': that.optionsChildChild[i][j].id,
+                              'name': 'Other',
+                              'parent': 0,
+                              'slug': 'other'
+                            };
+                            that.optionsChildChild[i][j].options.push(selectObject);
+                            that.optionsChildChild[i][j].options.push(object);
+                          }
+                        }
+                      }
+
                       that.pending = false;
-                    });
-                    console.log("end");
+                    }); // console.log("end");
                   } else {
                     that.disable = false;
                   }
@@ -2114,29 +2177,27 @@ __webpack_require__.r(__webpack_exports__);
                   _loop(index);
                 }
 
-              case 7:
+              case 4:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     },
     getChildOptions: function getChildOptions(event) {
-      var _this2 = this;
+      var _this3 = this;
 
-      return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2() {
+      return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee3() {
         var that, _loop2, index;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee3$(_context3) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context3.prev = _context3.next) {
               case 0:
-                that = _this2;
-                console.log(that.optionData);
+                that = _this3;
 
                 _loop2 = function _loop2(index) {
-                  console.log(index);
                   var arrData = that.optionData[index].split("-");
 
                   if (arrData[2] == 'Other') {
@@ -2149,6 +2210,31 @@ __webpack_require__.r(__webpack_exports__);
                     that.axios.get("options-child/" + arrData[4] + '/' + arrData[1]).then(function (response) {
                       that.disable = false;
                       vue__WEBPACK_IMPORTED_MODULE_9__["default"].set(that.optionsChild, index, response.data);
+                      var selectObject = {
+                        'child': false,
+                        'id': -1,
+                        'name': 'Select Value',
+                        'parent': -1,
+                        'slug': 'select value'
+                      };
+                      console.log(that.optionsChild);
+
+                      for (var i = index; i <= that.optionsChild.length; i++) {
+                        if (that.optionsChild[i]) {
+                          for (var j = 0; j < that.optionsChild[i].length; j++) {
+                            var object = {
+                              'child': false,
+                              'id': that.optionsChild[i][j].id,
+                              'name': 'Other',
+                              'parent': 0,
+                              'slug': 'other'
+                            };
+                            that.optionsChild[i][j].options.push(selectObject);
+                            that.optionsChild[i][j].options.push(object);
+                          }
+                        }
+                      }
+
                       that.pending = false;
                     });
                   } else {
@@ -2160,24 +2246,24 @@ __webpack_require__.r(__webpack_exports__);
                   _loop2(index);
                 }
 
-              case 4:
+              case 3:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2);
+        }, _callee3);
       }))();
     },
     onChange: function onChange(event) {
-      var _this3 = this;
+      var _this4 = this;
 
-      return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee3() {
+      return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee4() {
         var that;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee3$(_context3) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                that = _this3;
+                that = _this4;
                 that.disable = true;
                 that.properties = [], that.optionData = {}, that.inputOther = [], that.optionsChild = [], that.inputOtherString = [], that.pending = true;
                 that.axios.get("properties/" + that.subCategory_id.id).then(function (response) {
@@ -2214,22 +2300,22 @@ __webpack_require__.r(__webpack_exports__);
 
               case 4:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     },
     getCategories: function getCategories() {
-      var _this4 = this;
+      var _this5 = this;
 
-      return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee4() {
+      return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee5() {
         var that;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                that = _this4;
+                that = _this5;
                 that.disable = true;
                 that.subCategory_id = '', that.properties = [], that.optionData = {}, that.optionsChild = [], that.inputOther = [], that.inputOtherString = [], that.pending = true;
                 that.axios.get("categories").then(function (response) {
@@ -2244,10 +2330,10 @@ __webpack_require__.r(__webpack_exports__);
 
               case 4:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }))();
     },
     handleCategoryData: function handleCategoryData() {
@@ -2263,23 +2349,23 @@ __webpack_require__.r(__webpack_exports__);
       return object;
     },
     create: function create() {
-      var _this5 = this;
+      var _this6 = this;
 
-      return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee5() {
+      return (0,C_xampp_htdocs_vuejs_laravel_node_modules_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee6() {
         var that, index, item, arrSplit, object;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee5$(_context5) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                that = _this5;
-                _this5.form.categoryName = _this5.subCategories.name;
-                _this5.form.subCategoryName = _this5.subCategory_id.name;
-                _this5.form.options = [];
-                _this5.form.other = _this5.inputOtherString;
+                that = _this6;
+                _this6.form.categoryName = _this6.subCategories.name;
+                _this6.form.subCategoryName = _this6.subCategory_id.name;
+                _this6.form.options = [];
+                _this6.form.other = _this6.inputOtherString;
                 index = 0;
 
-                for (item in _this5.optionData) {
-                  arrSplit = _this5.optionData[item].split("-");
+                for (item in _this6.optionData) {
+                  arrSplit = _this6.optionData[item].split("-");
                   object = {
                     'child': arrSplit[0],
                     'option_id': arrSplit[1],
@@ -2289,14 +2375,15 @@ __webpack_require__.r(__webpack_exports__);
                   };
 
                   if (object.property_name != 'Select Value') {
-                    _this5.form.options.push(object);
+                    _this6.form.options.push(object);
                   }
 
                   index++;
                 }
 
-                _context5.next = 9;
-                return that.axios.post('postData', _this5.form).then(function (res) {
+                console.log(_this6.form);
+                _context6.next = 10;
+                return that.axios.post('postData', _this6.form).then(function (res) {
                   that.submitted = false;
                   that.$router.push({
                     name: 'data'
@@ -2310,12 +2397,12 @@ __webpack_require__.r(__webpack_exports__);
                   }
                 });
 
-              case 9:
+              case 10:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5);
+        }, _callee6);
       }))();
     }
   },
@@ -11732,6 +11819,54 @@ var render = function() {
                                                   })
                                                 : _vm._e(),
                                               _vm._v(" "),
+                                              _vm.inputOther[child.id] == 1 &&
+                                              child.property_id == index
+                                                ? _c("label", [
+                                                    _vm._v("Other Input")
+                                                  ])
+                                                : _vm._e(),
+                                              _vm._v(" "),
+                                              _vm.inputOther[child.id] == 1 &&
+                                              child.property_id == index
+                                                ? _c("input", {
+                                                    directives: [
+                                                      {
+                                                        name: "model",
+                                                        rawName: "v-model",
+                                                        value:
+                                                          _vm.inputOtherString[
+                                                            child.id
+                                                          ],
+                                                        expression:
+                                                          "inputOtherString[child.id]"
+                                                      }
+                                                    ],
+                                                    staticClass: "form-control",
+                                                    attrs: { type: "text" },
+                                                    domProps: {
+                                                      value:
+                                                        _vm.inputOtherString[
+                                                          child.id
+                                                        ]
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        if (
+                                                          $event.target
+                                                            .composing
+                                                        ) {
+                                                          return
+                                                        }
+                                                        _vm.$set(
+                                                          _vm.inputOtherString,
+                                                          child.id,
+                                                          $event.target.value
+                                                        )
+                                                      }
+                                                    }
+                                                  })
+                                                : _vm._e(),
+                                              _vm._v(" "),
                                               _vm._l(
                                                 _vm.optionsChildChild[child.id],
                                                 function(optionChildChild) {
@@ -11779,6 +11914,15 @@ var render = function() {
                                                                 _vm.disable,
                                                               clearable: false
                                                             },
+                                                            on: {
+                                                              input: function(
+                                                                $event
+                                                              ) {
+                                                                return _vm.otherChildChildInput(
+                                                                  $event
+                                                                )
+                                                              }
+                                                            },
                                                             scopedSlots: _vm._u(
                                                               [
                                                                 {
@@ -11818,6 +11962,73 @@ var render = function() {
                                                               },
                                                               expression:
                                                                 "optionData[optionChildChild.id]"
+                                                            }
+                                                          })
+                                                        : _vm._e(),
+                                                      _vm._v(" "),
+                                                      _vm.inputOther[
+                                                        optionChildChild.id
+                                                      ] == 1 &&
+                                                      optionChildChild.property_id ==
+                                                        index
+                                                        ? _c("label", [
+                                                            _vm._v(
+                                                              "Other Input"
+                                                            )
+                                                          ])
+                                                        : _vm._e(),
+                                                      _vm._v(" "),
+                                                      _vm.inputOther[
+                                                        optionChildChild.id
+                                                      ] == 1 &&
+                                                      optionChildChild.property_id ==
+                                                        index
+                                                        ? _c("input", {
+                                                            directives: [
+                                                              {
+                                                                name: "model",
+                                                                rawName:
+                                                                  "v-model",
+                                                                value:
+                                                                  _vm
+                                                                    .inputOtherString[
+                                                                    optionChildChild
+                                                                      .id
+                                                                  ],
+                                                                expression:
+                                                                  "inputOtherString[optionChildChild.id]"
+                                                              }
+                                                            ],
+                                                            staticClass:
+                                                              "form-control",
+                                                            attrs: {
+                                                              type: "text"
+                                                            },
+                                                            domProps: {
+                                                              value:
+                                                                _vm
+                                                                  .inputOtherString[
+                                                                  optionChildChild
+                                                                    .id
+                                                                ]
+                                                            },
+                                                            on: {
+                                                              input: function(
+                                                                $event
+                                                              ) {
+                                                                if (
+                                                                  $event.target
+                                                                    .composing
+                                                                ) {
+                                                                  return
+                                                                }
+                                                                _vm.$set(
+                                                                  _vm.inputOtherString,
+                                                                  optionChildChild.id,
+                                                                  $event.target
+                                                                    .value
+                                                                )
+                                                              }
                                                             }
                                                           })
                                                         : _vm._e()
