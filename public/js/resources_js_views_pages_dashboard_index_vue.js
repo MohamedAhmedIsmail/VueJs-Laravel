@@ -2088,22 +2088,18 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context.prev = _context.next) {
               case 0:
                 that = _this;
-                console.log(that.optionData);
 
                 for (index in that.optionData) {
-                  // console.log('index=',index);
                   arr = that.optionData[index].split('-');
 
                   if (arr[2] == 'Other') {
-                    // console.log("here");
                     that.inputOther[index] = 1;
                   } else {
-                    // console.log("here else");
                     that.inputOther[index] = 0;
                   }
                 }
 
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -2123,7 +2119,6 @@ __webpack_require__.r(__webpack_exports__);
               case 0:
                 that = _this2;
                 that.disable = true;
-                console.log(that.optionData);
 
                 _loop = function _loop(index) {
                   var arr = that.optionData[index].split('-');
@@ -2174,7 +2169,7 @@ __webpack_require__.r(__webpack_exports__);
                   _loop(index);
                 }
 
-              case 5:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -2193,7 +2188,6 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context3.prev = _context3.next) {
               case 0:
                 that = _this3;
-                console.log(that.optionData);
 
                 _loop2 = function _loop2(index) {
                   var arrData = that.optionData[index].split("-");
@@ -2244,7 +2238,7 @@ __webpack_require__.r(__webpack_exports__);
                   _loop2(index);
                 }
 
-              case 4:
+              case 3:
               case "end":
                 return _context3.stop();
             }

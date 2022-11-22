@@ -11,18 +11,19 @@ class DataHandler
             {
                 if($i!=$j)
                 {
-                    if(isset($options[$i]) && isset($options[$j]) && $options[$i]['index'] == $options[$j]['index'] && $options[$i]['value']=='Other')
-                    {
-                        $index[] = $j;
-                    }
+//                    if(isset($options[$i]) && isset($options[$j]) && $options[$i]['index'] == $options[$j]['index'] && $options[$i]['value']=='Other')
+//                    {
+//                        $index[] = $j;
+//                    }
                 }
             }
         }
-        for($i=0;$i<count($index);$i++)
-        {
-            unset($options[$index[$i]]);
-            unset($data['options'][$index[$i]]);
-        }
+//        dd($index,$options);
+//        for($i=0;$i<count($index);$i++)
+//        {
+//            unset($options[$index[$i]]);
+//            unset($data['options'][$index[$i]]);
+//        }
         for($i=0;$i<count($others);$i++)
         {
             for($j=0;$j<count($options);$j++)
@@ -56,7 +57,7 @@ class DataHandler
             {
                 for($i=0;$i<count($value);$i++)
                 {
-                    if(isset($value[$i]['property_name']) && $value[$i]['value']!='Other' && !isset($object[$value[$i]['property_name']]))
+                    if(isset($value[$i]['property_name']) && $value[$i]['value']!='Other' && !isset($object[$value[$i]['property_name']]) )
                     {
                         $object[$value[$i]['property_name']] = $value[$i]['value'];
                     }

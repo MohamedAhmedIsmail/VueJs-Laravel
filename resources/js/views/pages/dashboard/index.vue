@@ -45,28 +45,22 @@ export default {
 
         async otherChildChildInput(event){
             let that = this;
-            console.log(that.optionData);
             for(const index in that.optionData)
             {
-                // console.log('index=',index);
                 let arr = that.optionData[index].split('-');
                 if(arr[2] == 'Other')
                 {
-                    // console.log("here");
                     that.inputOther[index] = 1;
                 }
                 else
                 {
-                    // console.log("here else");
                     that.inputOther[index] = 0;
                 }
-
             }
         },
         async getChildChildOptions(event) {
           let that = this;
           that.disable = true;
-          console.log(that.optionData);
           for(const index in that.optionData)
           {
               let arr = that.optionData[index].split('-');
@@ -118,7 +112,6 @@ export default {
       },
         async getChildOptions(event) {
             let that = this;
-            console.log(that.optionData);
             for(const index in that.optionData)
             {
                 let arrData = that.optionData[index].split("-");
