@@ -65,21 +65,17 @@ export default {
         async getChildChildOptions(event) {
           let that = this;
           that.disable = true;
-          // console.log("here");
           // console.log(that.optionData);
-          // console.log("-----------------");
           for(const index in that.optionData)
           {
-              // console.log('index=',index);
               let arr = that.optionData[index].split('-');
               if(arr[2] == 'Other')
               {
-                  // console.log("here");
                   that.inputOther[index] = 1;
+                  Vue.set(that.optionsChildChild, index, []);
               }
               else
               {
-                  // console.log("here else");
                   that.inputOther[index] = 0;
               }
               if (arr[0] == 'true')
@@ -87,7 +83,6 @@ export default {
                   that.axios.get("options-child/" + arr[4] + '/' + arr[1]).then(function (response) {
                       that.disable = false;
                       Vue.set(that.optionsChildChild, index, response.data);
-                      // console.log(that.optionsChildChild);
                       let selectObject = {
                           'child':false,
                           'id':-1,
@@ -114,7 +109,6 @@ export default {
                       }
                       that.pending = false;
                   });
-                  // console.log("end");
               }
               else{
                   that.disable = false;
@@ -129,6 +123,7 @@ export default {
                 if(arrData[2] == 'Other')
                 {
                     that.inputOther[index] = 1;
+                    Vue.set(that.optionsChild,index,[]);
                 }
                 else
                 {
@@ -146,8 +141,6 @@ export default {
                             'parent':-1,
                             'slug':'select value'
                         };
-
-                        console.log(that.optionsChild);
                         for(let i=index;i<=that.optionsChild.length;i++)
                         {
                             if(that.optionsChild[i]){

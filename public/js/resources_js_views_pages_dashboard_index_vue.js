@@ -2121,27 +2121,22 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context2.prev = _context2.next) {
               case 0:
                 that = _this2;
-                that.disable = true; // console.log("here");
-                // console.log(that.optionData);
-                // console.log("-----------------");
+                that.disable = true; // console.log(that.optionData);
 
                 _loop = function _loop(index) {
-                  // console.log('index=',index);
                   var arr = that.optionData[index].split('-');
 
                   if (arr[2] == 'Other') {
-                    // console.log("here");
                     that.inputOther[index] = 1;
+                    vue__WEBPACK_IMPORTED_MODULE_9__["default"].set(that.optionsChildChild, index, []);
                   } else {
-                    // console.log("here else");
                     that.inputOther[index] = 0;
                   }
 
                   if (arr[0] == 'true') {
                     that.axios.get("options-child/" + arr[4] + '/' + arr[1]).then(function (response) {
                       that.disable = false;
-                      vue__WEBPACK_IMPORTED_MODULE_9__["default"].set(that.optionsChildChild, index, response.data); // console.log(that.optionsChildChild);
-
+                      vue__WEBPACK_IMPORTED_MODULE_9__["default"].set(that.optionsChildChild, index, response.data);
                       var selectObject = {
                         'child': false,
                         'id': -1,
@@ -2167,7 +2162,7 @@ __webpack_require__.r(__webpack_exports__);
                       }
 
                       that.pending = false;
-                    }); // console.log("end");
+                    });
                   } else {
                     that.disable = false;
                   }
@@ -2202,6 +2197,7 @@ __webpack_require__.r(__webpack_exports__);
 
                   if (arrData[2] == 'Other') {
                     that.inputOther[index] = 1;
+                    vue__WEBPACK_IMPORTED_MODULE_9__["default"].set(that.optionsChild, index, []);
                   } else {
                     that.inputOther[index] = 0;
                   }
@@ -2217,7 +2213,6 @@ __webpack_require__.r(__webpack_exports__);
                         'parent': -1,
                         'slug': 'select value'
                       };
-                      console.log(that.optionsChild);
 
                       for (var i = index; i <= that.optionsChild.length; i++) {
                         if (that.optionsChild[i]) {
