@@ -330,17 +330,16 @@ export default {
                                             <div v-for="optionChild in optionsChild">
                                                 <div v-if="optionChild!=null" v-for="child in optionChild">
                                                     <label v-if="child.property_id==index">{{child.name}}</label>
-                                                    <v-select v-if="child.property_id==index" v-model="optionData[child.id]" label="name" :options="child.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${child.name}-${index}-${child.id}-${option.parent}-${property.id}`"   @input="getChildChildOptions($event)" :disabled="disable" :clearable="false">
+                                                    <v-select v-if="child.property_id==index" v-model="optionData[child.id]" label="name" :options="child.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${child.name}-${index}`"   @input="getChildChildOptions($event)" :disabled="disable" :clearable="false">
                                                         <template v-slot:option="option"> {{option.name}} </template>
                                                     </v-select>
                                                     <label v-if="inputOther[child.id]==1 && child.property_id==index">Other Input</label>
                                                     <input v-model="inputOtherString[child.id]" type="text" class="form-control" v-if="inputOther[child.id]==1 && child.property_id==index">
 
                                                     <div v-for="optionChildChild in optionsChildChild[child.id]">
-                                                        {{optionChildChild}}
                                                         <label v-if="optionChildChild!=null && optionChildChild.property_id==index">{{optionChildChild.name}}</label>
 
-                                                        <v-select v-if="optionChildChild!=null && optionChildChild.property_id==index" v-model="optionData[optionChildChild.id]" label="name" :options="optionChildChild.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${optionChildChild.name}-${index}-${optionChildChild.parent}-${option.parent}-${property.id}`" @input="otherChildChildInput($event)" :disabled="disable" :clearable="false">
+                                                        <v-select v-if="optionChildChild!=null && optionChildChild.property_id==index" v-model="optionData[optionChildChild.id]" label="name" :options="optionChildChild.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${optionChildChild.name}-${index}`" @input="otherChildChildInput($event)" :disabled="disable" :clearable="false">
                                                             <template v-slot:option="option"> {{option.name}} </template>
                                                         </v-select>
 

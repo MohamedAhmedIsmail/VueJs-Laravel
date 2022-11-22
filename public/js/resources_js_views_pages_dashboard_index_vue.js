@@ -11766,13 +11766,7 @@ var render = function() {
                                                           "-" +
                                                           child.name +
                                                           "-" +
-                                                          index +
-                                                          "-" +
-                                                          child.id +
-                                                          "-" +
-                                                          option.parent +
-                                                          "-" +
-                                                          property.id
+                                                          index
                                                         )
                                                       },
                                                       disabled: _vm.disable,
@@ -11877,13 +11871,6 @@ var render = function() {
                                                   return _c(
                                                     "div",
                                                     [
-                                                      _vm._v(
-                                                        "\n                                                        " +
-                                                          _vm._s(
-                                                            optionChildChild
-                                                          ) +
-                                                          "\n                                                        "
-                                                      ),
                                                       optionChildChild !=
                                                         null &&
                                                       optionChildChild.property_id ==
@@ -11918,13 +11905,7 @@ var render = function() {
                                                                   "-" +
                                                                   optionChildChild.name +
                                                                   "-" +
-                                                                  index +
-                                                                  "-" +
-                                                                  optionChildChild.parent +
-                                                                  "-" +
-                                                                  option.parent +
-                                                                  "-" +
-                                                                  property.id
+                                                                  index
                                                                 )
                                                               },
                                                               disabled:

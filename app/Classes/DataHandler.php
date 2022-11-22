@@ -4,7 +4,25 @@ class DataHandler
 {
     public function handleOptionsData($others,$options,$data)
     {
-        
+        $index=[];
+        for($i=0;$i<count($options);$i++)
+        {
+            for($j=0;$j<count($options);$j++)
+            {
+                if($i!=$j)
+                {
+                    if(isset($options[$i]) && isset($options[$j]) && $options[$i]['index'] == $options[$j]['index'] && $options[$i]['value']=='Other')
+                    {
+                        $index[] = $j;
+                    }
+                }
+            }
+        }
+        for($i=0;$i<count($index);$i++)
+        {
+            unset($options[$index[$i]]);
+            unset($data['options'][$index[$i]]);
+        }
         for($i=0;$i<count($others);$i++)
         {
             for($j=0;$j<count($options);$j++)
