@@ -9,7 +9,7 @@ class DataHandler
         {
             for($j=0;$j<count($options);$j++)
             {
-                if(isset($options[$j]['index']) && (isset($others[$i]) && $i == $options[$j]['index']))
+                if(isset($options[$j]['index']) && (isset($others[$i]) && $i == $options[$j]['index']) && $options[$j]['value']=='Other')
                 {
                     $data['options'][$j]['value'] = $others[$i];
                 }
