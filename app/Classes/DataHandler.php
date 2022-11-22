@@ -4,7 +4,7 @@ class DataHandler
 {
     public function handleOptionsData($others,$options,$data)
     {
-//        dd($data);
+        
         for($i=0;$i<count($others);$i++)
         {
             for($j=0;$j<count($options);$j++)
@@ -19,7 +19,6 @@ class DataHandler
                 }
             }
         }
-//        dd($data);
         return $data;
     }
 

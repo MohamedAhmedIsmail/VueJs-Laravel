@@ -249,9 +249,12 @@ export default {
                 let object = {
                     'child':arrSplit[0],
                     'option_id':arrSplit[1],
-                    'property_name':arrSplit[3],
                     'value':arrSplit[2],
+                    'property_name':arrSplit[3],
                     'index':arrSplit[4],
+                    'id':arrSplit[5],
+                    'parent':arrSplit[6],
+                    'property_id':arrSplit[7]
                 }
                 if(object.property_name!='Select Value') {
                     this.form.options.push(object);
@@ -327,16 +330,17 @@ export default {
                                             <div v-for="optionChild in optionsChild">
                                                 <div v-if="optionChild!=null" v-for="child in optionChild">
                                                     <label v-if="child.property_id==index">{{child.name}}</label>
-                                                    <v-select v-if="child.property_id==index" v-model="optionData[child.id]" label="name" :options="child.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${child.name}-${index}`"   @input="getChildChildOptions($event)" :disabled="disable" :clearable="false">
+                                                    <v-select v-if="child.property_id==index" v-model="optionData[child.id]" label="name" :options="child.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${child.name}-${index}-${child.id}-${option.parent}-${property.id}`"   @input="getChildChildOptions($event)" :disabled="disable" :clearable="false">
                                                         <template v-slot:option="option"> {{option.name}} </template>
                                                     </v-select>
                                                     <label v-if="inputOther[child.id]==1 && child.property_id==index">Other Input</label>
                                                     <input v-model="inputOtherString[child.id]" type="text" class="form-control" v-if="inputOther[child.id]==1 && child.property_id==index">
 
                                                     <div v-for="optionChildChild in optionsChildChild[child.id]">
+                                                        {{optionChildChild}}
                                                         <label v-if="optionChildChild!=null && optionChildChild.property_id==index">{{optionChildChild.name}}</label>
 
-                                                        <v-select v-if="optionChildChild!=null && optionChildChild.property_id==index" v-model="optionData[optionChildChild.id]" label="name" :options="optionChildChild.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${optionChildChild.name}-${index}`" @input="otherChildChildInput($event)" :disabled="disable" :clearable="false">
+                                                        <v-select v-if="optionChildChild!=null && optionChildChild.property_id==index" v-model="optionData[optionChildChild.id]" label="name" :options="optionChildChild.options" :reduce="option => `${option.child}-${option.id}-${option.name}-${optionChildChild.name}-${index}-${optionChildChild.parent}-${option.parent}-${property.id}`" @input="otherChildChildInput($event)" :disabled="disable" :clearable="false">
                                                             <template v-slot:option="option"> {{option.name}} </template>
                                                         </v-select>
 

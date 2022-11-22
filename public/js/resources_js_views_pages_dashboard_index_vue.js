@@ -2364,9 +2364,12 @@ __webpack_require__.r(__webpack_exports__);
                   object = {
                     'child': arrSplit[0],
                     'option_id': arrSplit[1],
-                    'property_name': arrSplit[3],
                     'value': arrSplit[2],
-                    'index': arrSplit[4]
+                    'property_name': arrSplit[3],
+                    'index': arrSplit[4],
+                    'id': arrSplit[5],
+                    'parent': arrSplit[6],
+                    'property_id': arrSplit[7]
                   };
 
                   if (object.property_name != 'Select Value') {
@@ -11763,7 +11766,13 @@ var render = function() {
                                                           "-" +
                                                           child.name +
                                                           "-" +
-                                                          index
+                                                          index +
+                                                          "-" +
+                                                          child.id +
+                                                          "-" +
+                                                          option.parent +
+                                                          "-" +
+                                                          property.id
                                                         )
                                                       },
                                                       disabled: _vm.disable,
@@ -11868,6 +11877,13 @@ var render = function() {
                                                   return _c(
                                                     "div",
                                                     [
+                                                      _vm._v(
+                                                        "\n                                                        " +
+                                                          _vm._s(
+                                                            optionChildChild
+                                                          ) +
+                                                          "\n                                                        "
+                                                      ),
                                                       optionChildChild !=
                                                         null &&
                                                       optionChildChild.property_id ==
@@ -11902,7 +11918,13 @@ var render = function() {
                                                                   "-" +
                                                                   optionChildChild.name +
                                                                   "-" +
-                                                                  index
+                                                                  index +
+                                                                  "-" +
+                                                                  optionChildChild.parent +
+                                                                  "-" +
+                                                                  option.parent +
+                                                                  "-" +
+                                                                  property.id
                                                                 )
                                                               },
                                                               disabled:
