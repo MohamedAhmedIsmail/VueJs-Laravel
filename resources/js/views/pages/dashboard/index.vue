@@ -45,6 +45,7 @@ export default {
 
         async otherChildChildInput(event){
             let that = this;
+            console.log(that.optionData);
             for(const index in that.optionData)
             {
                 // console.log('index=',index);
@@ -65,7 +66,7 @@ export default {
         async getChildChildOptions(event) {
           let that = this;
           that.disable = true;
-          // console.log(that.optionData);
+          console.log(that.optionData);
           for(const index in that.optionData)
           {
               let arr = that.optionData[index].split('-');
@@ -117,6 +118,7 @@ export default {
       },
         async getChildOptions(event) {
             let that = this;
+            console.log(that.optionData);
             for(const index in that.optionData)
             {
                 let arrData = that.optionData[index].split("-");
@@ -252,9 +254,6 @@ export default {
                     'value':arrSplit[2],
                     'property_name':arrSplit[3],
                     'index':arrSplit[4],
-                    'id':arrSplit[5],
-                    'parent':arrSplit[6],
-                    'property_id':arrSplit[7]
                 }
                 if(object.property_name!='Select Value') {
                     this.form.options.push(object);
@@ -345,14 +344,9 @@ export default {
 
                                                         <label v-if="inputOther[optionChildChild.id]==1 && optionChildChild.property_id==index">Other Input</label>
                                                         <input v-model="inputOtherString[optionChildChild.id]" type="text" class="form-control" v-if="inputOther[optionChildChild.id]==1 && optionChildChild.property_id==index">
-
                                                     </div>
                                                 </div>
-
                                             </div>
-
-
-
 <!--                                            <RecursiveOptions :optionsChild="optionsChild" :optionData="optionData" :index="index"></RecursiveOptions>-->
                                         </div>
                                     </div>

@@ -2088,6 +2088,7 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context.prev = _context.next) {
               case 0:
                 that = _this;
+                console.log(that.optionData);
 
                 for (index in that.optionData) {
                   // console.log('index=',index);
@@ -2102,7 +2103,7 @@ __webpack_require__.r(__webpack_exports__);
                   }
                 }
 
-              case 2:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -2121,7 +2122,8 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context2.prev = _context2.next) {
               case 0:
                 that = _this2;
-                that.disable = true; // console.log(that.optionData);
+                that.disable = true;
+                console.log(that.optionData);
 
                 _loop = function _loop(index) {
                   var arr = that.optionData[index].split('-');
@@ -2172,7 +2174,7 @@ __webpack_require__.r(__webpack_exports__);
                   _loop(index);
                 }
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -2191,6 +2193,7 @@ __webpack_require__.r(__webpack_exports__);
             switch (_context3.prev = _context3.next) {
               case 0:
                 that = _this3;
+                console.log(that.optionData);
 
                 _loop2 = function _loop2(index) {
                   var arrData = that.optionData[index].split("-");
@@ -2241,7 +2244,7 @@ __webpack_require__.r(__webpack_exports__);
                   _loop2(index);
                 }
 
-              case 3:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -2366,10 +2369,7 @@ __webpack_require__.r(__webpack_exports__);
                     'option_id': arrSplit[1],
                     'value': arrSplit[2],
                     'property_name': arrSplit[3],
-                    'index': arrSplit[4],
-                    'id': arrSplit[5],
-                    'parent': arrSplit[6],
-                    'property_id': arrSplit[7]
+                    'index': arrSplit[4]
                   };
 
                   if (object.property_name != 'Select Value') {

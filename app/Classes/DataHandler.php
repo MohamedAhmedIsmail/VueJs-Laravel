@@ -56,7 +56,7 @@ class DataHandler
             {
                 for($i=0;$i<count($value);$i++)
                 {
-                    if(isset($value[$i]['property_name']) && $value[$i]['value']!='Other')
+                    if(isset($value[$i]['property_name']) && $value[$i]['value']!='Other' && !isset($object[$value[$i]['property_name']]))
                     {
                         $object[$value[$i]['property_name']] = $value[$i]['value'];
                     }
