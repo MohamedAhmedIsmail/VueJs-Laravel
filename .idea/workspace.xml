@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4d85d73e-7b48-40cc-af2c-ee7ec2a33889" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Classes/DataHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Classes/DataHandler.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/resources_js_views_pages_dashboard_index_vue.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/resources_js_views_pages_dashboard_index_vue.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/router/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/router/routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/pages/dashboard/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/pages/dashboard/index.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +215,10 @@
       <workItem from="1668522444221" duration="1948000" />
       <workItem from="1668608319065" duration="11304000" />
       <workItem from="1668675908496" duration="4424000" />
-      <workItem from="1668780894319" duration="6004000" />
+      <workItem from="1668780894319" duration="6425000" />
+      <workItem from="1668974816105" duration="3461000" />
+      <workItem from="1669024524386" duration="61000" />
+      <workItem from="1669025895684" duration="6318000" />
     </task>
     <task id="LOCAL-00001" summary="updates">
       <created>1668371717299</created>
@@ -262,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668677985231</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix other and data show">
+      <created>1668819658765</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668819658765</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,33 +279,38 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="updates" />
+    <MESSAGE value="fix other and data show" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix other and data show" />
   </component>
   <component name="WindowStateProjectService">
     <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1667918295740">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="413" y="119" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.728@0.0.1366.728" timestamp="1667918295740" />
-    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1668677984353">
+    <state x="308" y="0" key="CommitChangelistDialog2" timestamp="1668819657483">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1668677984353" />
-    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1668695882955">
+    <state x="308" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1668819657483" />
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1669053553756">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1668695882955" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1668677992002">
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1669053553756" />
+    <state x="501" y="75" key="RollbackChangesDialog" timestamp="1669032047761">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1668677992002" />
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1668392192129">
+    <state x="501" y="75" key="RollbackChangesDialog/0.0.1366.728@0.0.1366.728" timestamp="1669032047761" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1668819665525">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1668392192129" />
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1668430517957">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1668819665525" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1669031658304">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1668430517957" />
+    <state x="92" y="92" width="1182" height="544" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.728@0.0.1366.728" timestamp="1669031658304" />
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1669024531024">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="379" y="188" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1669024531024" />
     <state x="379" y="96" width="607" height="536" key="find.popup" timestamp="1668377943482">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

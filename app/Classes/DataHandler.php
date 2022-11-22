@@ -29,6 +29,7 @@ class DataHandler
         $others = $data['other'];
         $options = $data['options'];
         $data = $self->handleOptionsData($others,$options,$data);
+        $object = [];
         foreach($data as $key=>$value)
         {
             if(!is_array($value)) {
